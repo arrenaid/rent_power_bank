@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rent_power_bank/screens/auth_screen.dart';
 
 class PayScreen extends StatelessWidget {
   const PayScreen({super.key});
@@ -73,7 +74,11 @@ class PayScreen extends StatelessWidget {
                     ),
 
                     Spacer(),
-                    IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.forward), color:  Color(0xFF8a8a8e),),
+                    IconButton(onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => const AuthScreen()),
+                    ),
+
+                      icon: Icon(CupertinoIcons.forward), color:  Color(0xFF8a8a8e),),
 
                   ],
                 ),
