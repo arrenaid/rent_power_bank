@@ -7,7 +7,7 @@ import '../widgets/sign_button.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 
 MaskedInputFormatter phoneFormatter() {
-  return MaskedInputFormatter('+0 000 000 00 00');//0000000000
+  return MaskedInputFormatter('000 000 00 00');//0000000000
 }
 
 class AuthScreen extends StatefulWidget {
@@ -79,7 +79,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 padding: EdgeInsets.symmetric(horizontal: 13),
                 child: Container(
                   width: double.infinity,
-                  height: 37,
+                  height: 40,
                   decoration: BoxDecoration(
                     border: Border(bottom: BorderSide(color: Color(0xFFd0d0d0), width: 1))
                   ),
@@ -88,6 +88,20 @@ class _AuthScreenState extends State<AuthScreen> {
                     children: [
                       LeadingIcon(),
                       SizedBox(width: 12),
+                      Align(
+                        alignment: AlignmentGeometry.center,
+                        child: Text(
+                          '+ 1',
+                          style: TextStyle(
+                            color: Color(0xFF0B0B0B),
+                            fontFamily: 'Inter',
+                            fontSize: 16,
+                            fontWeight: FontWeight.w300,
+                            letterSpacing: 1,
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 4),
                       Expanded(
                         child: TextField(
                           // enabled: enabled,
@@ -105,7 +119,7 @@ class _AuthScreenState extends State<AuthScreen> {
                               _setEnable();
                             }
                             if (text.length < 2 /*&& text.isNotEmpty*/ ) {
-                              _controllerPhone.text = '+1 ';
+                              //_controllerPhone.text = '+1 ';
                             }
                             // context
                             //     .read<PhoneAuthBloc>()
@@ -113,15 +127,18 @@ class _AuthScreenState extends State<AuthScreen> {
                           },
                           // textInputAction: textInputAction,
                           // readOnly: readOnly,
-                          textAlign: TextAlign.start,
+                          //textAlign: TextAlign.start,
                           keyboardType: TextInputType.phone,
                           inputFormatters: [phoneFormatter()],
                           style: const TextStyle(
                             color: Color(0xFF0B0B0B),
                             fontSize: 16,
                             fontFamily: 'Inter',
+                            fontWeight: FontWeight.w300,
                             letterSpacing: 1,
                           ),
+                          cursorColor: Color(0xFF86E71F),
+
                           decoration: DefaultTextFieldDecoration(
                             hintText: 'Phone number',//"+7 (900) 000-00-00",
                             isDense: null,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rent_power_bank/screens/success_screen.dart';
 
 class BottomText extends StatelessWidget {
   const BottomText({super.key});
@@ -19,7 +20,8 @@ class BottomText extends StatelessWidget {
           ),
         ),
         TextButton(
-          onPressed: () {},
+          onPressed: () => Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => const SuccessScreen())),
           style: TextButton.styleFrom(
             foregroundColor: Color(0xFF606060),
             padding: EdgeInsets.zero,
