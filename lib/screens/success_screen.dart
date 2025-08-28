@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rent_power_bank/models/account_model.dart';
 import 'package:rent_power_bank/widgets/gradient_button.dart';
-
+import '../models/user.dart';
 import '../repositories/rent_power_repository.dart';
 import '../widgets/icon_and_title_row.dart';
 
@@ -11,7 +10,7 @@ class SuccessScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    late AccountModel? _account;
+    late User? _user;
     late String? _token;
     return Scaffold(
       body: SafeArea(
@@ -79,20 +78,58 @@ class SuccessScreen extends StatelessWidget {
               GradientButton(
                 title: 'gen Account',
                 execute: () async {
-                  _account = await RentPowerRepository.generationAccount();
-                  print('SUCCESS >>> ${_account?.access ?? '>>FAIL1<<'}' );
+                  _user = await RentPowerRepository.generationAccount();
+                  print('SUCCESS >>> ${_user?.authorizationToken ?? '>>FAIL1<<'}');
                 },
               ),
               SizedBox(height: 10),
               GradientButton(
                 title: 'gen Braintree token',
                 execute: () async {
-                  _token = await RentPowerRepository.generateBrainTreeToken(_account!.access);
-                  print('SUCCESS >>> ${_token ?? '>>FAIL2<<'}' );
+                  _user?.braintreeCustomerId = await RentPowerRepository.generateBrainTreeToken(
+                    _user!.authorizationToken,
+                  );
+                  print('SUCCESS2 >>> ${_user?.braintreeCustomerId ?? '>>FAIL2<<'}');
+                },
+              ),
+              SizedBox(height: 10),
+              GradientButton(
+                title: 'get default payment methods *',
+                execute: () async {
+                   var res = await RentPowerRepository.getDefaultPaymentMethods(
+                    /*_account?.access ?? '000'*/
+                  );
+                  print('SUCCESS2.1 >>> ${res ?? '>>FAIL2.1<<'}');
                 },
               ),
               SizedBox(height: 10),
 
+              GradientButton(
+                title: 'get default payment methods',
+                execute: () async {
+                  var res = await RentPowerRepository.postAddPaymentMethod(_user!);
+                  print('SUCCESS3 >>> ${ res ?? '>>FAIL3<<'}');
+                },
+              ),
+              SizedBox(height: 10),
+
+              GradientButton(
+                title: 'Create Subscription',
+                execute: () async {
+                  var res = await RentPowerRepository.postCreateSubscription(_user!);
+                  print('SUCCESS3 >>> ${ res ?? '>>FAIL3<<'}');
+                },
+              ),
+              SizedBox(height: 10),
+
+              GradientButton(
+                title: 'Rent Powerbank',
+                execute: () async {
+                  var res = await RentPowerRepository.postRentPowerbank(_user!);
+                  print('SUCCESS3 >>> ${ res ?? '>>FAIL3<<'}');
+                },
+              ),
+              SizedBox(height: 10),
 
               ///end
             ],

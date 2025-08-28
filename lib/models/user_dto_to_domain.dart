@@ -1,9 +1,9 @@
 import 'package:rent_power_bank/models/user_dto.dart';
-import 'package:rent_power_bank/models/user_entity.dart';
+import 'package:rent_power_bank/models/user.dart';
 
 extension UserDtoToDomain on UserDTO {
-  UserEntity toDomain() {
-    return UserEntity(
+  User toDomain() {
+    return User(
       id: id,
       phone: phone ?? '',
       authType: authType ?? '',
